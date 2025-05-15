@@ -1,15 +1,13 @@
 extends Node3D
 
-@onready var _player_display_container := $PlayerDisplayContainer
+@onready var _missile_container := $MissileContainer
 
 
-func add_players(count: int) -> void:
-	_player_display_container.columns = ceilf(sqrt(count))
-	for x in count:
-		_add_player(x)
-
-
-func _add_player(index: int) -> void:
-	var player_display := preload("res://player_display.tscn").instantiate()
-	_player_display_container.add_child(player_display)
-	player_display.player_index = index
+func on_player_missile_launch_requested(player: Player) -> void:
+	var missile = load("res://missile/missile.tscn").instantiate()
+	_missile_container.add_child(missile)
+	missile.global_position = player.global_position + \
+		Vector3.DOWN * 3 + \
+		Vector3.FORWARD.rotated(Vector3.UP, player.rotation.y) * player.speed / 100
+	missile.rotation = player.rotation
+	missile.damage = player.missile_damage

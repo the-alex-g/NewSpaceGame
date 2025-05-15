@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://blkbh8fmbsoso"]
+
+[ext_resource type="Script" uid="uid://baj3tlgu80dlj" path="res://missile/missile.gd" id="1_yplei"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_w25oy"]
+height = 1.0
+radius = 0.25
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w25oy"]
+radius = 0.25
+height = 1.0
+
+[node name="Missile" type="CharacterBody3D"]
+script = ExtResource("1_yplei")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_w25oy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999996, 0.00291933, 8.25397e-06, -2.67884e-06, -0.00191371, 0.999998, 0.00291934, -0.999994, -0.00191369, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_w25oy")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
