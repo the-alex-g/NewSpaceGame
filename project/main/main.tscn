@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmt1goqc2tg2b"]
+
+[ext_resource type="Script" uid="uid://df0orlu2um7s6" path="res://main/main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://djvi11yd6tng5" path="res://player_display.tscn" id="2_pjrb6"]
+[ext_resource type="Script" uid="uid://bh4o3gwqj3x2a" path="res://main/starfield.gd" id="3_xwkvk"]
+
+[sub_resource type="Environment" id="Environment_vouji"]
+background_mode = 1
+background_color = Color(0.0156863, 0.0156863, 0.0313726, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_xwkvk"]
+_data = [Vector2(0, 0.123596), 0.0, 0.0, 0, 0, Vector2(0.829787, 0.561798), 1.79091, 1.79091, 0, 0, Vector2(1, 0.977528), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_c651c"]
+offsets = PackedFloat32Array(0, 0.407407, 0.882716, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 1, 0.882716, 0.882716, 1, 0.231373, 1, 1, 1)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_ig7tw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vouji")
+
+[node name="PlayerDisplayContainer" type="GridContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerDisplay" parent="PlayerDisplayContainer" instance=ExtResource("2_pjrb6")]
+layout_mode = 2
+
+[node name="StarField" type="MultiMeshInstance3D" parent="."]
+script = ExtResource("3_xwkvk")
+size = 10000.0
+star_count = 2500
+star_radius_curve = SubResource("Curve_xwkvk")
+star_color_gradient = SubResource("Gradient_c651c")
+metadata/_custom_type_script = "uid://bh4o3gwqj3x2a"
