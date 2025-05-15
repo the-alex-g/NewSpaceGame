@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmt1goqc2tg2b"]
+[gd_scene load_steps=7 format=3 uid="uid://dmt1goqc2tg2b"]
 
 [ext_resource type="Script" uid="uid://pj68ya5vuexn" path="res://main/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://df0orlu2um7s6" path="res://main/player_display_container.gd" id="2_c651c"]
-[ext_resource type="PackedScene" uid="uid://djvi11yd6tng5" path="res://player_display.tscn" id="2_pjrb6"]
 [ext_resource type="Script" uid="uid://bh4o3gwqj3x2a" path="res://main/starfield.gd" id="3_xwkvk"]
 
 [sub_resource type="Environment" id="Environment_vouji"]
@@ -33,9 +32,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_c651c")
 
-[node name="PlayerDisplay" parent="PlayerDisplayContainer" instance=ExtResource("2_pjrb6")]
-layout_mode = 2
-
 [node name="StarField" type="MultiMeshInstance3D" parent="."]
 script = ExtResource("3_xwkvk")
 size = 10000.0
@@ -45,5 +41,3 @@ star_color_gradient = SubResource("Gradient_c651c")
 metadata/_custom_type_script = "uid://bh4o3gwqj3x2a"
 
 [node name="MissileContainer" type="Node3D" parent="."]
-
-[connection signal="missile_launch_requested" from="PlayerDisplayContainer/PlayerDisplay" to="." method="on_player_missile_launch_requested"]

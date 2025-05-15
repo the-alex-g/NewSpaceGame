@@ -1,9 +1,9 @@
 class_name StarField
 extends MultiMeshInstance3D
 
-@export var near := 400.0
-@export var far := 800.0
-@export var size := 1000.0
+@export var near := 300.0
+@export var far := 700.0
+@export var size := 500.0
 @export var star_count := 4000
 @export var min_star_radius := 2.0
 @export var max_star_radius := 10.0

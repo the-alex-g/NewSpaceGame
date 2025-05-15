@@ -1,6 +1,10 @@
 extends GridContainer
 
 
+func _ready() -> void:
+	add_players(2)
+
+
 func add_players(count: int) -> void:
 	columns = ceilf(sqrt(count))
 	for x in count:

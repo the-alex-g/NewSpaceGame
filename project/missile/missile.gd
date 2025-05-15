@@ -2,7 +2,8 @@ class_name Missile
 extends CharacterBody3D
 
 var damage := 0.0
-var speed := 175
+var speed := 20
+var launcher : Player
 
 
 func _physics_process(delta: float) -> void:
@@ -11,3 +12,9 @@ func _physics_process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	queue_free()
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if not body == launcher and not body == self:
+		body.damage(damage)
+		queue_free()

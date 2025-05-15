@@ -22,7 +22,7 @@ var fuel := 100.0 :
 var max_fuel := 100.0
 var fuel_regeneration := 10.0
 var thrust_fuel_burn_multiplier := 2.5
-var thrust_speed_multiplier := 25.0
+var thrust_speed_multiplier := 2.0
 var speed : float :
 	get():
 		return _thrust * thrust_speed_multiplier
@@ -53,6 +53,9 @@ var shield_percent_absorption := 0.9
 
 
 func _physics_process(delta: float) -> void:
+	if index != 0:
+		return
+	
 	if Input.is_action_just_pressed("increase_thrust"):
 		_thrust += 1
 	if Input.is_action_just_pressed("decrease_thrust"):

@@ -6,6 +6,7 @@ extends Node3D
 func on_player_missile_launch_requested(player: Player) -> void:
 	var missile = load("res://missile/missile.tscn").instantiate()
 	_missile_container.add_child(missile)
+	missile.launcher = player
 	missile.global_position = player.global_position + \
 		Vector3.DOWN * 3 + \
 		Vector3.FORWARD.rotated(Vector3.UP, player.rotation.y) * player.speed / 100
