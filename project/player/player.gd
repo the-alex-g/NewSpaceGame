@@ -2,14 +2,23 @@ class_name Player
 extends CharacterBody3D
 
 signal missile_launch_requested(player: Player)
+signal fuel_updated(fuel: float)
+signal health_updated(health: float)
+signal shield_strength_updated(shield_strength: float)
+signal thrust_updated(thrust: float)
 
 @export var turn_speed := 0.5
 
 var index := 0
 var _thrust := 0 :
 	set(value):
-		if value <= max_thrust and value >= 0:
+		if value < 0.0:
+			_thrust = 0.0
+		elif value > max_thrust:
+			_thrust = max_thrust
+		else:
 			_thrust = value
+		thrust_updated.emit(_thrust)
 	get():
 		if _thrust * thrust_fuel_burn_multiplier > fuel:
 			_thrust = floor(fuel / thrust_fuel_burn_multiplier)
@@ -17,8 +26,13 @@ var _thrust := 0 :
 var max_thrust := 6
 var fuel := 100.0 :
 	set(value):
-		if value >= 0.0 and value <= max_fuel:
+		if value < 0.0:
+			fuel = 0.0
+		elif value > max_fuel:
+			fuel = max_fuel
+		else:
 			fuel = value
+		fuel_updated.emit(fuel)
 var max_fuel := 100.0
 var fuel_regeneration := 10.0
 var thrust_fuel_burn_multiplier := 2.5
@@ -26,10 +40,15 @@ var thrust_speed_multiplier := 2.0
 var speed : float :
 	get():
 		return _thrust * thrust_speed_multiplier
-var health := 50.0 :
+var health := 100.0 :
 	set(value):
-		if value <= max_health and value >= 0.0:
+		if value < 0.0:
+			health = 0.0
+		elif value > max_health:
+			health = max_health
+		else:
 			health = value
+		health_updated.emit(health)
 var max_health := 100.0
 var repair_fuel_cost := 2.0
 var phaser_fuel_cost := 5
@@ -41,8 +60,13 @@ var missile_cooldown_time := 1.0
 var _can_fire_missiles := true
 var shield_health := 100.0 :
 	set(value):
-		if value >= 0.0 and value <= max_shield_health:
+		if value < 0.0:
+			shield_health = 0.0
+		elif value > max_shield_health:
+			shield_health = max_shield_health
+		else:
 			shield_health = value
+		shield_strength_updated.emit(shield_health)
 var max_shield_health := 100.0
 var _shields_up := false
 var shield_fuel_cost := 5
@@ -53,6 +77,11 @@ var shield_percent_absorption := 0.9
 
 
 func _physics_process(delta: float) -> void:
+	_calculate_fuel(delta)
+	
+	if not _shields_up:
+		shield_health += shield_recovery_rate * delta
+	
 	if index != 0:
 		return
 	
@@ -70,13 +99,6 @@ func _physics_process(delta: float) -> void:
 	var turning := Input.get_axis("right", "left")
 	rotate(Vector3.UP, turning * delta * TAU * turn_speed)
 	$Camera3D.global_rotation = Vector3(-PI/2, 0.0, 0.0)
-	
-	_calculate_fuel(delta)
-	
-	if not _shields_up:
-		shield_health += shield_recovery_rate * delta
-	
-	print("ship ", index, ": fuel ", round(fuel), " health ", round(health))
 	
 	move_and_collide(Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * delta * speed)
 
