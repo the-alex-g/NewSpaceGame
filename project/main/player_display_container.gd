@@ -9,6 +9,9 @@ func add_players(count: int) -> void:
 	columns = ceilf(sqrt(count))
 	for x in count:
 		_add_player(x)
+	for child_1 in get_children():
+		for child_2 in get_children():
+			child_1.track_object(child_2.get_player())
 
 
 func _add_player(index: int) -> void:

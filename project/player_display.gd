@@ -17,6 +17,11 @@ var player_index := -1 : set = set_player_index, get = get_player_index
 @onready var _fuel_bar := %FuelBar
 @onready var _shield_bar := %ShieldBar
 @onready var _thrust_label := %ThrustLabel
+@onready var _radar := $Radar
+
+
+func _ready() -> void:
+	_radar.central_object = _player
 
 
 func set_player_index(value: int) -> void:
@@ -29,12 +34,21 @@ func get_player_index() -> int:
 	return _player.index
 
 
+func get_player() -> Player:
+	return _player
+
+
+func track_object(object: Node3D) -> void:
+	if object != _player:
+		print(object)
+		_radar.track_object(object)
+
+
 func _initialize_player_controls(index: int) -> void:
 	for action in ACTIONS:
 		var action_name := "%s_%d" % [action, index]
 		if index != 0:
 			InputMap.add_action(action_name)
-			print("adding action ", action_name)
 		var event := InputEventJoypadButton.new()
 		event.button_index = ACTIONS[action]
 		event.device = index
