@@ -106,7 +106,6 @@ func _physics_process(delta: float) -> void:
 	var turning := -Input.get_joy_axis(index, JOY_AXIS_LEFT_X) + \
 		Input.get_axis("right", "left")
 	rotate(Vector3.UP, turning * delta * TAU * turn_speed)
-	$Camera3D.global_rotation = Vector3(-PI/2, 0.0, 0.0)
 	
 	move_and_collide(Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * delta * speed)
 

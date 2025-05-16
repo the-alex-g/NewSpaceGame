@@ -18,10 +18,16 @@ var player_index := -1 : set = set_player_index, get = get_player_index
 @onready var _shield_bar := %ShieldBar
 @onready var _thrust_label := %ThrustLabel
 @onready var _radar := $Radar
+@onready var _camera := $SubViewportContainer/SubViewport/Camera3D
+@onready var _camera_offset : Vector3 = _camera.position
 
 
 func _ready() -> void:
 	_radar.central_object = _player
+
+
+func _process(_delta: float) -> void:
+	_camera.position = _player.position + _camera_offset
 
 
 func set_player_index(value: int) -> void:

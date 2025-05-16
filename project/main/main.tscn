@@ -9,6 +9,7 @@ background_mode = 1
 background_color = Color(0.0156863, 0.0156863, 0.0313726, 1)
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
+glow_enabled = true
 
 [sub_resource type="Curve" id="Curve_xwkvk"]
 _data = [Vector2(0, 0.123596), 0.0, 0.0, 0, 0, Vector2(0.829787, 0.561798), 1.79091, 1.79091, 0, 0, Vector2(1, 0.977528), 0.0, 0.0, 0, 0]
@@ -41,3 +42,5 @@ star_color_gradient = SubResource("Gradient_c651c")
 metadata/_custom_type_script = "uid://bh4o3gwqj3x2a"
 
 [node name="MissileContainer" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

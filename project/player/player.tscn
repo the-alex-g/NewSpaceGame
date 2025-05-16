@@ -2,17 +2,17 @@
 
 [ext_resource type="Script" uid="uid://cf34qdetnrndf" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Shader" uid="uid://baqp38cv7r402" path="res://player/shield.gdshader" id="2_rkbax"]
+[ext_resource type="PackedScene" uid="uid://bvuiffaiek6p6" path="res://blender_files/spaceship_0.blend" id="3_g1dw6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kqu6x"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_kqu6x"]
+radius = 2.01472
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_oul6g"]
 radius = 10.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_yw30f"]
-radius = 1.5
-height = 3.5
+radius = 2.0
+height = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rkbax"]
 render_priority = 0
@@ -62,13 +62,6 @@ script = ExtResource("1_oul6g")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_kqu6x")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_kqu6x")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 20, 0)
-current = true
-
 [node name="PhaserArea" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PhaserArea"]
@@ -85,3 +78,6 @@ surface_material_override/0 = SubResource("ShaderMaterial_rkbax")
 libraries = {
 &"": SubResource("AnimationLibrary_yw30f")
 }
+
+[node name="spaceship_0" parent="." instance=ExtResource("3_g1dw6")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
