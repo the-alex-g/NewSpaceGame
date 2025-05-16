@@ -6,7 +6,7 @@ func _ready() -> void:
 
 
 func add_players(count: int) -> void:
-	columns = ceilf(sqrt(count))
+	columns = ceili(sqrt(count))
 	for x in count:
 		_add_player(x)
 	for child_1 in get_children():

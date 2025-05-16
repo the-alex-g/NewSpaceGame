@@ -68,12 +68,23 @@ var shield_health := 100.0 :
 			shield_health = value
 		shield_strength_updated.emit(shield_health)
 var max_shield_health := 100.0
-var _shields_up := false
+var _shields_up := false :
+	set(value):
+		_shields_up = value
+		if _shields_up:
+			_animation_player.play("shield_up")
+		else:
+			_animation_player.play_backwards("shield_up")
 var shield_fuel_cost := 5
 var shield_recovery_rate := 10.0
 var shield_percent_absorption := 0.9
 
 @onready var _phaser_area : Area3D = $PhaserArea
+@onready var _animation_player : AnimationPlayer = $AnimationPlayer
+
+
+func _ready() -> void:
+	$ShieldMesh.set_instance_shader_parameter("y_threshold", 0.0)
 
 
 func _physics_process(delta: float) -> void:

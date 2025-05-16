@@ -40,7 +40,6 @@ func get_player() -> Player:
 
 func track_object(object: Node3D) -> void:
 	if object != _player:
-		print(object)
 		_radar.track_object(object)
 
 
