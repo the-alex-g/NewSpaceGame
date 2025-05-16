@@ -136,18 +136,38 @@ func _fire_phaser() -> void:
 	var targets := _phaser_area.get_overlapping_bodies()
 	var target : Node3D = null
 	for potential_target in targets:
-		if target:
-			if target.global_position.distance_squared_to(global_position) < \
-					potential_target.global_position.distance_squared_to(global_position):
+		if potential_target != self:
+			if target:
+				if target.global_position.distance_squared_to(global_position) < \
+						potential_target.global_position.distance_squared_to(global_position):
+					target = potential_target
+			else:
 				target = potential_target
-		else:
-			target = potential_target
 	if target:
 		fuel -= phaser_fuel_cost
 		target.damage(phaser_damage)
+		_spawn_phaser_beam(target)
 		_can_fire_phasers = false
 		await get_tree().create_timer(phaser_cooldown_time).timeout
 		_can_fire_phasers = true
+
+
+func _spawn_phaser_beam(target: Node3D) -> void:
+	var offset := global_position - target.global_position
+	var distance := offset.length()
+	var mesh := CylinderMesh.new()
+	mesh.height = distance
+	mesh.top_radius = 0.1
+	mesh.bottom_radius = 0.1
+	var mesh_instance := MeshInstance3D.new()
+	get_tree().root.add_child(mesh_instance)
+	mesh_instance.mesh = mesh
+	mesh_instance.global_position = lerp(global_position, target.global_position, 0.5)
+	mesh_instance.rotation.y = atan2(-offset.z, offset.x) + PI / 2
+	mesh_instance.rotation.x = PI / 2
+	create_tween().tween_property(mesh_instance, "global_position", target.global_position, 0.1).set_trans(Tween.TRANS_QUAD)
+	await create_tween().tween_property(mesh, "height", 0.2, 0.1).set_trans(Tween.TRANS_QUAD).finished
+	mesh_instance.queue_free()
 
 
 func damage(amount: float) -> void:
