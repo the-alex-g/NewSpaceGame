@@ -2,6 +2,14 @@ extends Control
 
 signal missile_launch_requested(player: Player)
 
+const ACTIONS := {
+	"increase_thrust":JOY_BUTTON_RIGHT_SHOULDER,
+	"decrease_thrust":JOY_BUTTON_LEFT_SHOULDER,
+	"toggle_shields":JOY_BUTTON_A,
+	"fire_phaser":JOY_BUTTON_X,
+	"fire_missile":JOY_BUTTON_Y
+}
+
 var player_index := -1 : set = set_player_index, get = get_player_index
 
 @onready var _player := %Player
@@ -13,10 +21,24 @@ var player_index := -1 : set = set_player_index, get = get_player_index
 
 func set_player_index(value: int) -> void:
 	_player.index = value
+	_player.position += Vector3.FORWARD.rotated(Vector3.UP, PI * player_index / 2) * 3
+	_initialize_player_controls(value)
 
 
 func get_player_index() -> int:
 	return _player.index
+
+
+func _initialize_player_controls(index: int) -> void:
+	for action in ACTIONS:
+		var action_name := "%s_%d" % [action, index]
+		if index != 0:
+			InputMap.add_action(action_name)
+			print("adding action ", action_name)
+		var event := InputEventJoypadButton.new()
+		event.button_index = ACTIONS[action]
+		event.device = index
+		InputMap.action_add_event(action_name, event)
 
 
 func _on_player_missile_launch_requested(player: Player) -> void:

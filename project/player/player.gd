@@ -12,8 +12,8 @@ signal thrust_updated(thrust: float)
 var index := 0
 var _thrust := 0 :
 	set(value):
-		if value < 0.0:
-			_thrust = 0.0
+		if value < 0:
+			_thrust = 0
 		elif value > max_thrust:
 			_thrust = max_thrust
 		else:
@@ -79,24 +79,21 @@ var shield_percent_absorption := 0.9
 func _physics_process(delta: float) -> void:
 	_calculate_fuel(delta)
 	
-	if not _shields_up:
-		shield_health += shield_recovery_rate * delta
+	shield_health += shield_recovery_rate * delta * (0.5 if _shields_up else 1.0)
 	
-	if index != 0:
-		return
-	
-	if Input.is_action_just_pressed("increase_thrust"):
+	if Input.is_action_just_pressed("increase_thrust_%d" % index):
 		_thrust += 1
-	if Input.is_action_just_pressed("decrease_thrust"):
+	if Input.is_action_just_pressed("decrease_thrust_%d" % index):
 		_thrust -= 1
-	if Input.is_action_just_pressed("toggle_shields"):
+	if Input.is_action_just_pressed("toggle_shields_%d" % index):
 		_shields_up = not _shields_up
-	if Input.is_action_just_pressed("fire_missile") and _can_fire_missiles:
+	if Input.is_action_just_pressed("fire_missile_%d" % index) and _can_fire_missiles:
 		_fire_missile()
-	if Input.is_action_pressed("fire_phaser") and _can_fire_phasers:
+	if Input.is_action_pressed("fire_phaser_%d" % index) and _can_fire_phasers:
 		_fire_phaser()
 	
-	var turning := Input.get_axis("right", "left")
+	var turning := -Input.get_joy_axis(index, JOY_AXIS_LEFT_X) + \
+		Input.get_axis("right", "left")
 	rotate(Vector3.UP, turning * delta * TAU * turn_speed)
 	$Camera3D.global_rotation = Vector3(-PI/2, 0.0, 0.0)
 	
@@ -144,6 +141,7 @@ func _fire_phaser() -> void:
 
 func damage(amount: float) -> void:
 	if _shields_up:
-		shield_health -= amount * shield_percent_absorption
-		amount *= 1.0 - shield_percent_absorption
+		var absorption := minf(shield_health, amount * shield_percent_absorption)
+		shield_health -= absorption
+		amount -= absorption
 	health -= amount
