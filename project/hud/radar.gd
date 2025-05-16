@@ -15,7 +15,7 @@ func track_object(object: Node3D) -> void:
 
 
 func _get_pos_2d(vector: Vector3) -> Vector2:
-	return Vector2(vector.x, -vector.z)
+	return -Vector2(vector.x, vector.z)
 
 
 func _get_offset(object: Node3D) -> Vector2:
@@ -28,11 +28,7 @@ func _is_visible(object: Node3D) -> bool:
 
 
 func _get_draw_point(object: Node3D) -> Vector2:
-	return Vector2.from_angle(
-		_get_pos_2d(
-			central_object.global_position
-		).angle_to(_get_pos_2d(object.global_position))
-	) * _radar_circle_radius + size / 2
+	return _get_pos_2d(central_object.global_position - object.global_position).normalized() * _radar_circle_radius + size / 2
 
 
 func _process(_delta: float) -> void:
