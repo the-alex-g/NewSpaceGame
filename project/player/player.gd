@@ -115,7 +115,8 @@ func _physics_process(delta: float) -> void:
 	
 	velocity += (speed * _get_forward_vector() - velocity * FRICTION) * delta
 	
-	move_and_slide()
+	if move_and_slide():
+		damage(25.0 * delta * (_thrust + 1))
 
 
 func _get_forward_vector() -> Vector3:
