@@ -96,7 +96,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_calculate_fuel(delta)
 	
-	shield_health += shield_recovery_rate * delta * (0.5 if _shields_up else 1.0)
+	shield_health += shield_recovery_rate * delta * (0.25 if _shields_up else 1.0)
 	
 	if Input.is_action_just_pressed("increase_thrust_%d" % index):
 		_thrust += 1
@@ -129,7 +129,8 @@ func _calculate_fuel(delta: float) -> void:
 	if _shields_up:
 		delta_fuel -= shield_fuel_cost
 	
-	if health < max_health and delta_fuel > 0.0:
+	if health < max_health and delta_fuel > 0.0 and \
+			(health < max_health / 2.0 or fuel > max_fuel / 1.5):
 		var repair_amount := floorf(delta_fuel / repair_fuel_cost)
 		health += repair_amount * delta
 		delta_fuel -= repair_fuel_cost * repair_amount
