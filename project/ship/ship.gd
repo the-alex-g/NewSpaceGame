@@ -1,8 +1,6 @@
 class_name Ship
 extends CharacterBody3D
 
-signal missile_launch_requested(object: Ship)
-
 const FRICTION := 2.0
 
 @export var turn_speed := 0.5
@@ -84,7 +82,12 @@ func _calculate_fuel(delta: float) -> void:
 
 
 func _fire_missile() -> void:
-	missile_launch_requested.emit(self)
+	var missile = load("res://missile/missile.tscn").instantiate()
+	get_tree().root.add_child(missile)
+	missile.launcher = self
+	missile.global_position = global_position + missile_drop_offset
+	missile.rotation = rotation
+	missile.damage = missile_damage
 	_can_fire_missiles = false
 	await get_tree().create_timer(missile_cooldown_time).timeout
 	_can_fire_missiles = true

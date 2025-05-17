@@ -1,7 +1,5 @@
 extends Control
 
-signal missile_launch_requested(player: Player)
-
 const ACTIONS := {
 	"increase_thrust":JOY_BUTTON_RIGHT_SHOULDER,
 	"decrease_thrust":JOY_BUTTON_LEFT_SHOULDER,
@@ -58,10 +56,6 @@ func _initialize_player_controls(index: int) -> void:
 		event.button_index = ACTIONS[action]
 		event.device = index
 		InputMap.action_add_event(action_name, event)
-
-
-func _on_player_missile_launch_requested(player: Player) -> void:
-	missile_launch_requested.emit(player)
 
 
 func _on_player_fuel_updated(fuel: float) -> void:

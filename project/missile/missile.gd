@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 var damage := 0.0
 var speed := 20
-var launcher : Player
+var launcher : Ship
 
 
 func _physics_process(delta: float) -> void:

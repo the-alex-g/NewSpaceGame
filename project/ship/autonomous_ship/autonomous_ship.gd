@@ -17,7 +17,7 @@ func _act(delta: float) -> void:
 		var distance_to_target := global_position.distance_to(target.global_position)
 		var angle := _get_angle_between(global_position, target.global_position) - rotation.y
 		angle = fmod(angle + PI, TAU) - PI
-		if abs(angle) > PI / 18:
+		if abs(angle) > 0.05:
 			if _turn_direction == 0:
 				_thrust = 1
 				if angle > 0.0:

@@ -103,6 +103,5 @@ offset_bottom = -102.0
 
 [connection signal="fuel_updated" from="SubViewportContainer/SubViewport/Player" to="." method="_on_player_fuel_updated"]
 [connection signal="health_updated" from="SubViewportContainer/SubViewport/Player" to="." method="_on_player_health_updated"]
-[connection signal="missile_launch_requested" from="SubViewportContainer/SubViewport/Player" to="." method="_on_player_missile_launch_requested"]
 [connection signal="shield_strength_updated" from="SubViewportContainer/SubViewport/Player" to="." method="_on_player_shield_strength_updated"]
 [connection signal="thrust_updated" from="SubViewportContainer/SubViewport/Player" to="." method="_on_player_thrust_updated"]
