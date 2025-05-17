@@ -54,7 +54,8 @@ var health := 100.0 :
 var max_health := 100.0
 var repair_fuel_cost := 2.0
 var phaser_fuel_cost := 5
-var phaser_damage := 10.0
+var max_phaser_damage := 10.0
+var min_phaser_damage := 2.5
 var phaser_cooldown_time := 0.5
 var _can_fire_phasers := true
 var missile_damage := 50.0
@@ -100,7 +101,7 @@ func _physics_process(delta: float) -> void:
 		_thrust -= 1
 	if Input.is_action_just_pressed("toggle_shields_%d" % index):
 		_shields_up = not _shields_up
-	if Input.is_action_just_pressed("fire_missile_%d" % index) and _can_fire_missiles:
+	if Input.is_action_pressed("fire_missile_%d" % index) and _can_fire_missiles:
 		_fire_missile()
 	if Input.is_action_pressed("fire_phaser_%d" % index) and _can_fire_phasers:
 		_fire_phaser()
@@ -152,7 +153,11 @@ func _fire_phaser() -> void:
 				target = potential_target
 	if target:
 		fuel -= phaser_fuel_cost
-		target.damage(phaser_damage)
+		target.damage(lerp(
+			max_phaser_damage,
+			min_phaser_damage,
+			pow(target.global_position.distance_to(global_position) / 10.0, 2.0)
+		))
 		_spawn_phaser_beam(target)
 		_can_fire_phasers = false
 		await get_tree().create_timer(phaser_cooldown_time).timeout
