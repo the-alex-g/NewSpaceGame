@@ -6,6 +6,8 @@ signal health_updated(health: float)
 signal shield_strength_updated(shield_strength: float)
 signal thrust_updated(thrust: float)
 
+var index := 0
+
 
 func _ready() -> void:
 	$ShieldMesh.set_instance_shader_parameter("y_threshold", 0.0)

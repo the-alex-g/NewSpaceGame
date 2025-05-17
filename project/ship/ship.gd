@@ -5,40 +5,45 @@ const FRICTION := 2.0
 
 @export var turn_speed := 0.5
 
-var index := 0
 var _thrust := 0 : set = _set_thrust, get = _get_thrust
-var max_thrust := 6
-var fuel := 100.0 : set = set_fuel
-var max_fuel := 100.0
-var fuel_regeneration := 10.0
-var thrust_fuel_burn_multiplier := 2.5
-var thrust_speed_multiplier := 2.0
+@export_group("thrust and fuel")
+@export var max_thrust := 6
+@export var max_fuel := 100.0
+@export var fuel_regeneration := 10.0
+@export var thrust_fuel_burn_multiplier := 2.5
+@export var thrust_speed_multiplier := 2.0
+@export_group("health")
+@export var max_health := 100.0
+@export var repair_fuel_cost := 2.0
+@export_group("phasers")
+@export var phaser_fuel_cost := 5
+@export var max_phaser_damage := 10.0
+@export var min_phaser_damage := 2.5
+@export var phaser_cooldown_time := 0.5
+@export_group("missiles")
+@export var missile_damage := 50.0
+@export var missile_cooldown_time := 1.0
+@export_group("shields")
+@export var max_shield_health := 100.0
+@export var shield_fuel_cost := 5
+@export var shield_recovery_rate := 10.0
+@export var shield_percent_absorption := 0.9
+
 var speed : float :
 	get():
 		return _thrust * thrust_speed_multiplier
-var health := 100.0 : set = set_health
-var max_health := 100.0
-var repair_fuel_cost := 2.0
-var phaser_fuel_cost := 5
-var max_phaser_damage := 10.0
-var min_phaser_damage := 2.5
-var phaser_cooldown_time := 0.5
 var _can_fire_phasers := true
-var missile_damage := 50.0
-var missile_cooldown_time := 1.0
 var _can_fire_missiles := true
-var shield_health := 100.0 : set = set_shield_health
-var max_shield_health := 100.0
 var _shields_up := false : set = _set_shields_up
-var shield_fuel_cost := 5
-var shield_recovery_rate := 10.0
-var shield_percent_absorption := 0.9
 
 @onready var _phaser_area : Area3D = $PhaserArea
 @onready var _animation_player : AnimationPlayer = $AnimationPlayer
 @onready var missile_drop_offset : Vector3 = $MissileDropLocation.position :
 	get():
 		return missile_drop_offset + _get_forward_vector() * speed / 100.0
+@onready var fuel := max_fuel : set = set_fuel
+@onready var health := max_health : set = set_health
+@onready var shield_health := max_shield_health : set = set_shield_health
 
 
 func _ready() -> void:

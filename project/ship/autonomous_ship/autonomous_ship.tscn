@@ -8,6 +8,7 @@ radius = 30.0
 
 [node name="AutonomousShip" instance=ExtResource("1_wjvp1")]
 script = ExtResource("2_4maw4")
+missile_cooldown_time = 2.0
 
 [node name="DetectionRange" type="Area3D" parent="." index="6"]
 
