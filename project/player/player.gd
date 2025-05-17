@@ -7,6 +7,8 @@ signal health_updated(health: float)
 signal shield_strength_updated(shield_strength: float)
 signal thrust_updated(thrust: float)
 
+const FRICTION := 2.0
+
 @export var turn_speed := 0.5
 
 var index := 0
@@ -107,7 +109,13 @@ func _physics_process(delta: float) -> void:
 		Input.get_axis("right", "left")
 	rotate(Vector3.UP, turning * delta * TAU * turn_speed)
 	
-	move_and_collide(Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * delta * speed)
+	velocity += (speed * _get_forward_vector() - velocity * FRICTION) * delta
+	
+	move_and_slide()
+
+
+func _get_forward_vector() -> Vector3:
+	return Vector3.FORWARD.rotated(Vector3.UP, rotation.y)
 
 
 func _calculate_fuel(delta: float) -> void:
