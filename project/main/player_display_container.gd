@@ -1,8 +1,10 @@
 extends GridContainer
 
+@export var initial_players := 1
+
 
 func _ready() -> void:
-	add_players(2)
+	add_players(initial_players)
 
 
 func add_players(count: int) -> void:
