@@ -84,6 +84,9 @@ var shield_percent_absorption := 0.9
 
 @onready var _phaser_area : Area3D = $PhaserArea
 @onready var _animation_player : AnimationPlayer = $AnimationPlayer
+@onready var missile_drop_offset : Vector3 = $MissileDropLocation.position :
+	get():
+		return missile_drop_offset + _get_forward_vector() * speed / 100.0
 
 
 func _ready() -> void:
