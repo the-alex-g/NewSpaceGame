@@ -49,7 +49,10 @@ void fragment() {
 
 	for (int y = 0; y < 3; y++) {
 		for (int x = 0; x < 3; x++) {
-			hex_uv[y * 3 + x] = get_hex_uv(UV + vec2(ivec2(x - 1, y - 1)) * line_size + vec2(sin(TIME / 100.0), cos(TIME / 100.0)));
+			hex_uv[y * 3 + x] = get_hex_uv(
+				(UV + vec2(ivec2(x - 1, y - 1)) * line_size + 
+				vec2(TIME / 2.0, -TIME) / 100.0)
+			);
 		}
 	}
 
