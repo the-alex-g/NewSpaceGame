@@ -63,6 +63,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0731201, 0.0787964, 0.00860
 shape = SubResource("CylinderShape3D_r4tgf")
 
 [node name="PhaserArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PhaserArea"]
 shape = SubResource("CylinderShape3D_54674")

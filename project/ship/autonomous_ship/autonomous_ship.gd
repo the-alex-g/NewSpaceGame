@@ -59,10 +59,8 @@ func _get_angle_between(a: Vector3, b: Vector3) -> float:
 func _modulate_thrust() -> void:
 	if _thrust < 1 or health < max_health / 10 or fuel < max_fuel / 10:
 		_thrust = 1
-	elif _shields_up and fuel < max_fuel / 2:
-		_thrust = 2
 	elif fuel < max_fuel / 2:
-		_thrust = 4
+		_thrust = _get_cruising_speed()
 
 
 func damage(amount: float) -> void:
@@ -81,3 +79,7 @@ func _set_shields_up(value: bool) -> void:
 		_shield_drop_timer.start(10.0)
 	else:
 		_shield_drop_timer.stop()
+
+
+func _get_missile_launch_angle() -> float:
+	return rotation.y + (randf() - 0.5) * 0.3

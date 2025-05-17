@@ -71,6 +71,11 @@ func _get_forward_vector() -> Vector3:
 	return Vector3.FORWARD.rotated(Vector3.UP, rotation.y)
 
 
+func _get_cruising_speed() -> int:
+	return floori((fuel_regeneration - (shield_fuel_cost if _shields_up else 0)) / \
+		thrust_fuel_burn_multiplier)
+
+
 func _calculate_fuel(delta: float) -> void:
 	var delta_fuel := fuel_regeneration - _thrust * thrust_fuel_burn_multiplier
 	
@@ -91,11 +96,15 @@ func _fire_missile() -> void:
 	get_tree().root.add_child(missile)
 	missile.launcher = self
 	missile.global_position = global_position + missile_drop_offset
-	missile.rotation = rotation
-	missile.damage = missile_damage
+	missile.rotation.y = _get_missile_launch_angle()
+	missile.missile_damage = missile_damage
 	_can_fire_missiles = false
 	await get_tree().create_timer(missile_cooldown_time).timeout
 	_can_fire_missiles = true
+
+
+func _get_missile_launch_angle() -> float:
+	return rotation.y
 
 
 func _fire_phaser() -> void:
