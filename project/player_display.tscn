@@ -36,7 +36,7 @@ unique_name_in_owner = true
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.587644, 0.80912, 0, -0.80912, 0.587644, 0, 17.2088, 11.2548)
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PlayerHUD" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -46,26 +46,26 @@ offset_top = -89.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerHUD"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerHUD/VBoxContainer"]
 layout_mode = 2
 
-[node name="ThrustLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="ThrustLabel" type="Label" parent="PlayerHUD/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Thrust: 0"
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="PlayerHUD/VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="HealthLabel" type="Label" parent="PanelContainer/VBoxContainer/GridContainer"]
+[node name="HealthLabel" type="Label" parent="PlayerHUD/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Hull "
 
-[node name="HealthBar" type="ProgressBar" parent="PanelContainer/VBoxContainer/GridContainer"]
+[node name="HealthBar" type="ProgressBar" parent="PlayerHUD/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -73,11 +73,11 @@ size_flags_vertical = 1
 value = 100.0
 show_percentage = false
 
-[node name="FuelLabel" type="Label" parent="PanelContainer/VBoxContainer/GridContainer"]
+[node name="FuelLabel" type="Label" parent="PlayerHUD/VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Fuel"
+text = "Energy"
 
-[node name="FuelBar" type="ProgressBar" parent="PanelContainer/VBoxContainer/GridContainer"]
+[node name="FuelBar" type="ProgressBar" parent="PlayerHUD/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -85,11 +85,11 @@ size_flags_vertical = 1
 value = 100.0
 show_percentage = false
 
-[node name="ShieldLabel" type="Label" parent="PanelContainer/VBoxContainer/GridContainer"]
+[node name="ShieldLabel" type="Label" parent="PlayerHUD/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Shields"
 
-[node name="ShieldBar" type="ProgressBar" parent="PanelContainer/VBoxContainer/GridContainer"]
+[node name="ShieldBar" type="ProgressBar" parent="PlayerHUD/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
