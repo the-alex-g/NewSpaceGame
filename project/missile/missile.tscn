@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://blkbh8fmbsoso"]
 
 [ext_resource type="Script" uid="uid://baj3tlgu80dlj" path="res://missile/missile.gd" id="1_yplei"]
-[ext_resource type="PackedScene" uid="uid://cbeoppd6j6pt5" path="res://blender_files/missile.blend" id="2_nhnjh"]
+[ext_resource type="PackedScene" uid="uid://0duovppf7c8i" path="res://blender_files/missile.blend" id="2_nhnjh"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_w25oy"]
 height = 1.63525

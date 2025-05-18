@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpwugdo4jthv"]
+
+[ext_resource type="PackedScene" uid="uid://bvuiffaiek6p6" path="res://blender_files/spaceship_0.blend" id="1_n476w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0otm"]
+resource_name = "Material"
+cull_mode = 2
+albedo_color = Color(0.412154, 0.412152, 0.412152, 1)
+roughness = 0.5
+
+[node name="Spaceship_one" instance=ExtResource("1_n476w")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_s0otm")

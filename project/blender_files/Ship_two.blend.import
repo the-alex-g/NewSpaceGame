@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://0duovppf7c8i"
-path="res://.godot/imported/missile.blend-d74f8780026d10136163aaa7ba1063a8.scn"
+uid="uid://bc3mv84dmeu4q"
+path="res://.godot/imported/Ship_two.blend-4bb08b5f4043fa3963c450b63ddb066a.scn"
 
 [deps]
 
-source_file="res://blender_files/missile.blend"
-dest_files=["res://.godot/imported/missile.blend-d74f8780026d10136163aaa7ba1063a8.scn"]
+source_file="res://blender_files/Ship_two.blend"
+dest_files=["res://.godot/imported/Ship_two.blend-4bb08b5f4043fa3963c450b63ddb066a.scn"]
 
 [params]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://0duovppf7c8i"
-path="res://.godot/imported/missile.blend-d74f8780026d10136163aaa7ba1063a8.scn"
+uid="uid://bvsc4u825ualk"
+path="res://.godot/imported/xeno_spaceship_0.blend-a7e40d43ab4b266616b3455d995e39a2.scn"
 
 [deps]
 
-source_file="res://blender_files/missile.blend"
-dest_files=["res://.godot/imported/missile.blend-d74f8780026d10136163aaa7ba1063a8.scn"]
+source_file="res://blender_files/xeno_spaceship_0.blend"
+dest_files=["res://.godot/imported/xeno_spaceship_0.blend-a7e40d43ab4b266616b3455d995e39a2.scn"]
 
 [params]
 
