@@ -61,6 +61,8 @@ func _modulate_thrust() -> void:
 		_thrust = 1
 	elif fuel < max_fuel / 2:
 		_thrust = _get_cruising_speed()
+	elif fuel < max_fuel / 4:
+		_thrust = _get_cruising_speed() - 1
 
 
 func damage(amount: float) -> void:

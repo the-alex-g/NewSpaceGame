@@ -11,7 +11,9 @@ var _thrust := 0 : set = _set_thrust, get = _get_thrust
 @export var max_fuel := 100.0
 @export var fuel_regeneration := 10.0
 @export var thrust_fuel_burn_multiplier := 2.5
-@export var thrust_speed_multiplier := 2.0
+@export var thrust_speed_multiplier := 2.0 :
+	get():
+		return thrust_speed_multiplier + FRICTION
 @export_group("health")
 @export var max_health := 100.0
 @export var repair_fuel_cost := 2.0
@@ -32,7 +34,9 @@ var _thrust := 0 : set = _set_thrust, get = _get_thrust
 var speed : float :
 	get():
 		return _thrust * thrust_speed_multiplier
-var _can_fire_phasers := true
+var _can_fire_phasers := true :
+	get():
+		return _can_fire_phasers and fuel >= phaser_fuel_cost
 var _can_fire_missiles := true
 var _shields_up := false : set = _set_shields_up
 
@@ -82,11 +86,12 @@ func _calculate_fuel(delta: float) -> void:
 	if _shields_up:
 		delta_fuel -= shield_fuel_cost
 	
+	var repair_amount := 1.0
 	if health < max_health and delta_fuel > 0.0 and \
 			(health < max_health / 2.0 or fuel > max_fuel / 1.5):
-		var repair_amount := floorf(delta_fuel / repair_fuel_cost)
-		health += repair_amount * delta
+		repair_amount = maxf(1.0, floorf(delta_fuel / repair_fuel_cost)) 
 		delta_fuel -= repair_fuel_cost * repair_amount
+	health += repair_amount * delta
 	
 	fuel += delta_fuel * delta
 

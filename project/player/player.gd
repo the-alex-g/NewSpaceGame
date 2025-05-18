@@ -25,8 +25,9 @@ func _act(delta: float) -> void:
 	if Input.is_action_pressed("fire_phaser_%d" % index) and _can_fire_phasers:
 		_fire_phaser()
 	
-	var turning := -Input.get_joy_axis(index, JOY_AXIS_LEFT_X) + \
-		Input.get_axis("right", "left")
+	var turning := -Input.get_joy_axis(index, JOY_AXIS_LEFT_X)
+	if index == 0:
+		turning += Input.get_axis("right", "left")
 	rotate(Vector3.UP, turning * delta * TAU * turn_speed)
 
 
