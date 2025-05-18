@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmt1goqc2tg2b"]
 
 [ext_resource type="Script" uid="uid://df0orlu2um7s6" path="res://main/player_display_container.gd" id="2_c651c"]
+[ext_resource type="PackedScene" uid="uid://drcekevwxkdlp" path="res://asteroid/asteroid.tscn" id="3_c651c"]
 [ext_resource type="Script" uid="uid://bh4o3gwqj3x2a" path="res://main/starfield.gd" id="3_xwkvk"]
-[ext_resource type="PackedScene" uid="uid://ddxvsddrrr8fq" path="res://ship/autonomous_ship/autonomous_ship.tscn" id="4_c651c"]
 
 [sub_resource type="Environment" id="Environment_vouji"]
 background_mode = 1
@@ -31,6 +31,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_c651c")
+initial_players = 2
 
 [node name="StarField" type="MultiMeshInstance3D" parent="."]
 script = ExtResource("3_xwkvk")
@@ -42,5 +43,5 @@ metadata/_custom_type_script = "uid://bh4o3gwqj3x2a"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
-[node name="AutonomousShip" parent="." instance=ExtResource("4_c651c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21.5595)
+[node name="Asteroid" parent="." instance=ExtResource("3_c651c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.1716)

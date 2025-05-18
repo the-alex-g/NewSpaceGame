@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://drcekevwxkdlp"]
+
+[ext_resource type="Script" uid="uid://clbv6vv4xx54q" path="res://asteroid/asteroid.gd" id="1_da5kf"]
+[ext_resource type="Shader" uid="uid://bm6nbcppggii2" path="res://asteroid/asteroid.gdshader" id="2_ow88a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ow88a"]
+size = Vector3(1.20632, 2.25, 1.85209)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vhsxs"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kkysg"]
+noise_type = 2
+seed = -1168031807
+frequency = 0.00334728
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iic4w"]
+seamless = true
+noise = SubResource("FastNoiseLite_kkysg")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_84fqd"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_kkysg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7gw88"]
+render_priority = 0
+shader = ExtResource("2_ow88a")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_iic4w")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_84fqd")
+
+[node name="Asteroid" type="RigidBody3D"]
+axis_lock_linear_y = true
+gravity_scale = 0.0
+script = ExtResource("1_da5kf")
+radius = 3.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ow88a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+instance_shader_parameters/noise_offset = Vector2(360.031, 366.371)
+instance_shader_parameters/scale = Vector3(1.20632, 2.25, 1.85209)
+mesh = SubResource("SphereMesh_vhsxs")
+surface_material_override/0 = SubResource("ShaderMaterial_7gw88")
