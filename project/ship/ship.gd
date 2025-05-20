@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 const FRICTION := 2.0
 
-@export var turn_speed := 0.5
+@export var turn_speed := 0.6 : get = _get_turn_speed
 
 var _thrust := 0 : set = _set_thrust, get = _get_thrust
 @export_group("thrust and fuel")
@@ -215,3 +215,7 @@ func _set_shields_up(value: bool) -> void:
 		_animation_player.play("shield_up")
 	else:
 		_animation_player.play_backwards("shield_up")
+
+
+func _get_turn_speed() -> float:
+	return lerpf(turn_speed, 0.1, float(_thrust) / max_thrust)
