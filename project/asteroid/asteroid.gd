@@ -38,13 +38,14 @@ func _size_collision_shape(dimensions: Vector3) -> void:
 func damage(_amount: float) -> void:
 	queue_free()
 	if radius > 1.0:
-		for x in roundi(lerpf(1.0, radius, randf())):
-			_spawn_child_asteroid()
+		var asteroids := maxi(roundi(lerpf(radius / 2.0, radius, randf())), 1)
+		for x in asteroids:
+			_spawn_child_asteroid(max(2.0, asteroids))
 
 
-func _spawn_child_asteroid() -> void:
+func _spawn_child_asteroid(divisor: int) -> void:
 	var asteroid := preload("res://asteroid/asteroid.tscn").instantiate()
-	asteroid.radius = radius / 2.0
+	asteroid.radius = radius / divisor
 	get_parent().add_child(asteroid)
 	var offset_direction := Vector3.FORWARD.rotated(Vector3.UP, TAU * randf())
 	asteroid.global_position = global_position + offset_direction * radius
