@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmt1goqc2tg2b"]
 
 [ext_resource type="Script" uid="uid://df0orlu2um7s6" path="res://main/player_display_container.gd" id="2_c651c"]
-[ext_resource type="PackedScene" uid="uid://drcekevwxkdlp" path="res://asteroid/asteroid.tscn" id="3_c651c"]
+[ext_resource type="PackedScene" uid="uid://btsp8fmc77p38" path="res://aliens/alien_ship.tscn" id="3_c651c"]
 [ext_resource type="Script" uid="uid://bh4o3gwqj3x2a" path="res://main/starfield.gd" id="3_xwkvk"]
 
 [sub_resource type="Environment" id="Environment_vouji"]
@@ -43,5 +43,5 @@ metadata/_custom_type_script = "uid://bh4o3gwqj3x2a"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 
-[node name="Asteroid" parent="." instance=ExtResource("3_c651c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.1716)
+[node name="AlienShip" parent="." instance=ExtResource("3_c651c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.905479, 0, -50.8853)

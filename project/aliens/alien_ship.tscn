@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://btsp8fmc77p38"]
+
+[ext_resource type="PackedScene" uid="uid://bvsc4u825ualk" path="res://blender_files/xeno_spaceship_0.blend" id="1_1jsta"]
+[ext_resource type="Script" uid="uid://uie50nmgb1pk" path="res://aliens/alien_ship.gd" id="1_x7800"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_x7800"]
+radius = 3.53516
+
+[node name="AlienShip" type="CharacterBody3D"]
+script = ExtResource("1_x7800")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00415039)
+shape = SubResource("CylinderShape3D_x7800")
+
+[node name="TurnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="xeno_spaceship_0" parent="." instance=ExtResource("1_1jsta")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+
+[node name="AsteroidTimer" type="Timer" parent="."]
+wait_time = 7.5
+
+[connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]
+[connection signal="timeout" from="AsteroidTimer" to="." method="_on_asteroid_timer_timeout"]

@@ -38,7 +38,7 @@ func _size_collision_shape(dimensions: Vector3) -> void:
 func damage(_amount: float) -> void:
 	queue_free()
 	if radius > 1.0:
-		for x in radius:
+		for x in roundi(lerpf(1.0, radius, randf())):
 			_spawn_child_asteroid()
 
 
